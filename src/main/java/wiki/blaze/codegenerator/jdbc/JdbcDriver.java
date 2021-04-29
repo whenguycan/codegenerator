@@ -76,8 +76,8 @@ public class JdbcDriver {
                 "left join user_col_comments comm on tcols.column_name = comm.column_name and tcols.table_name = comm.table_name " +
                 "left join (" +
                     "select cons.table_name,cons.constraint_type,ccols.column_name " +
-                    "from all_constraints cons " +
-                    "left join all_cons_columns ccols " +
+                    "from user_constraints cons " +
+                    "left join user_cons_columns ccols " +
                     "on cons.table_name = ccols.table_name and cons.constraint_name = ccols.constraint_name " +
                     "where cons.constraint_type = 'P'" +
                 ") ccons " +

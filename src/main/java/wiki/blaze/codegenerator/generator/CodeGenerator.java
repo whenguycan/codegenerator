@@ -15,11 +15,11 @@ import java.util.Map;
  */
 public class CodeGenerator {
 
-    static final String OUTPUT_DIR = "C:\\_git_repo\\codegenerate";
+    static final String OUTPUT_DIR = "C:\\_git_repo\\code_generate";
 
-    static final String TABLE_NAME = "T_XG_VISITOR";
-    static final String BEAN_NAME = "Visitor";
-    static final String PACKAGE_PREF = "com.goisan.studentwork.visitor";
+    static final String TABLE_NAME = "T_SYS_USER";
+    static final String BEAN_NAME = "User";
+    static final String PACKAGE_PREF = "com.goisan.system.user";
 
     private CodeGenerator() {}
 

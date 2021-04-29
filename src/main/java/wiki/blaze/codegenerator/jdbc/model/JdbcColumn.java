@@ -19,7 +19,7 @@ public class JdbcColumn {
         this.columnCamelName = getCamelName();
         this.dataType = dataType;
         this.constraintType = constraintType;
-        this.comments = comments;
+        this.comments = comments != null ? comments : "";
     }
 
     String getCamelName() {
@@ -67,7 +67,7 @@ public class JdbcColumn {
     }
 
     public void setComments(String comments) {
-        this.comments = comments;
+        this.comments = comments != null ? comments : "";
     }
 
     public String getColumnCamelName() {

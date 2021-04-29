@@ -20,13 +20,14 @@ public class JdbcTable {
         this.tableName = tableName;
         this.beanName = beanName;
         this.packagePref = packagePref;
+        this.comments = "";
     }
 
     public JdbcTable(String tableName, String beanName, String packagePref, String comments) {
         this.tableName = tableName;
         this.beanName = beanName;
         this.packagePref = packagePref;
-        this.comments = comments;
+        this.comments = comments != null ? comments : "";
     }
 
     public JdbcTable clone() {
@@ -79,7 +80,7 @@ public class JdbcTable {
     }
 
     public void setComments(String comments) {
-        this.comments = comments;
+        this.comments = comments != null ? comments : "";
     }
 
     public List<JdbcColumn> getJdbcColumns() {
