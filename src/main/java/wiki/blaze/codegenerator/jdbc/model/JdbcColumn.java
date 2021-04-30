@@ -1,9 +1,12 @@
 package wiki.blaze.codegenerator.jdbc.model;
 
+import lombok.Data;
+
 /**
  * @Author wangcy
  * @Date 2021/4/28 14:21
  */
+@Data
 public class JdbcColumn {
 
     String tableName;
@@ -38,51 +41,8 @@ public class JdbcColumn {
         return sb.toString();
     }
 
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public String getColumnName() {
-        return columnName;
-    }
-
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
     public void setComments(String comments) {
         this.comments = comments != null ? comments : "";
     }
 
-    public String getColumnCamelName() {
-        return columnCamelName;
-    }
-
-    public void setColumnCamelName(String columnCamelName) {
-        this.columnCamelName = columnCamelName;
-    }
-
-    public String getConstraintType() {
-        return constraintType;
-    }
-
-    public void setConstraintType(String constraintType) {
-        this.constraintType = constraintType;
-    }
 }
