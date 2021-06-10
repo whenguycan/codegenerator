@@ -15,6 +15,11 @@ import java.util.Map;
  */
 public class CodeGenerator {
 
+    public static final String driverName = "oracle.jdbc.driver.OracleDriver";
+    public static final String url = "jdbc:oracle:thin:@192.168.2.251:1521:orcl";
+    public static final String username = "gemini_zz_3_3";
+    public static final String password = "gemini_zz_3_3";
+
     static final String OUTPUT_DIR = "C:\\_git_repo\\code_generate";
 
     static final String TABLE_NAME = "T_SYS_USER";

@@ -38,6 +38,7 @@ public class ${jdbcTable.beanName}ServiceImpl implements ${jdbcTable.beanName}Se
     }
 
     /*修改数据*/
+    @Override
     public int update(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
         return this.${jdbcTable.beanName?uncap_first}Dao.update(${jdbcTable.beanName?uncap_first});
     }

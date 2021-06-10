@@ -15,18 +15,18 @@ import java.util.List;
 public interface ${jdbcTable.beanName}Dao {
 
     /*通过ID查询单条数据*/
-    ${jdbcTable.beanName} queryById(String id);
+    public ${jdbcTable.beanName} queryById(String id);
 
     /*通过实体作为筛选条件查询*/
-    List<${jdbcTable.beanName}> queryAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
+    public List<${jdbcTable.beanName}> queryAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
 
     /*新增数据*/
-    int insert(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
+    public int insert(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
 
     /*修改数据*/
-    int update(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
+    public int update(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
 
     /*通过主键删除数据*/
-    int deleteById(String id);
+    public int deleteById(String id);
 
 }

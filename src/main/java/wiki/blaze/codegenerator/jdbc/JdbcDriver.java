@@ -1,8 +1,8 @@
 package wiki.blaze.codegenerator.jdbc;
 
+import wiki.blaze.codegenerator.generator.CodeGenerator;
 import wiki.blaze.codegenerator.jdbc.model.JdbcColumn;
 import wiki.blaze.codegenerator.jdbc.model.JdbcTable;
-import wiki.blaze.codegenerator.util.PropertyUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,14 +17,9 @@ import java.util.List;
  */
 public class JdbcDriver {
 
-    static final String driverName = PropertyUtils.getString("jdbc.driver");
-    static final String url = PropertyUtils.getString("jdbc.url");
-    static final String username = PropertyUtils.getString("jdbc.username");
-    static final String password = PropertyUtils.getString("jdbc.password");
-
     static {
         try {
-            Class.forName(driverName);
+            Class.forName(CodeGenerator.driverName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -32,7 +27,7 @@ public class JdbcDriver {
     }
 
     public static Connection getConnection() throws Exception {
-        return DriverManager.getConnection(url, username, password);
+        return DriverManager.getConnection(CodeGenerator.url, CodeGenerator.username, CodeGenerator.password);
     }
 
     public static JdbcTable getSchemas(JdbcTable model) throws Exception {
@@ -40,8 +35,8 @@ public class JdbcDriver {
         JdbcTable jdbcTable = getTableSchemas(model, conn);
         List<JdbcColumn> jdbcColumnList = getColumnSchemas(model, conn);
         for (JdbcColumn jdbcColumn : jdbcColumnList) {
-            if("P".equals(jdbcColumn.getConstraintType())) {
-                jdbcTable.setPkColumn(jdbcColumn);
+            if("P".equals(jdbcColumn.constraintType)) {
+                jdbcTable.pkColumn = jdbcColumn;
                 break;
             }
         }

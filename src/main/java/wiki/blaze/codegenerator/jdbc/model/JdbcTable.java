@@ -1,7 +1,5 @@
 package wiki.blaze.codegenerator.jdbc.model;
 
-import lombok.Data;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,7 +7,6 @@ import java.util.stream.Collectors;
  * @Author wangcy
  * @Date 2021/4/28 14:21
  */
-@Data
 public class JdbcTable {
 
     public String tableName;
@@ -58,4 +55,47 @@ public class JdbcTable {
         this.comments = comments != null ? comments : "";
     }
 
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getBeanName() {
+        return beanName;
+    }
+
+    public void setBeanName(String beanName) {
+        this.beanName = beanName;
+    }
+
+    public String getPackagePref() {
+        return packagePref;
+    }
+
+    public void setPackagePref(String packagePref) {
+        this.packagePref = packagePref;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public JdbcColumn getPkColumn() {
+        return pkColumn;
+    }
+
+    public void setPkColumn(JdbcColumn pkColumn) {
+        this.pkColumn = pkColumn;
+    }
+
+    public List<JdbcColumn> getJdbcColumns() {
+        return jdbcColumns;
+    }
+
+    public void setJdbcColumns(List<JdbcColumn> jdbcColumns) {
+        this.jdbcColumns = jdbcColumns;
+    }
 }
