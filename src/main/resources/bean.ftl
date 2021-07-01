@@ -16,7 +16,7 @@ public class ${jdbcTable.beanName} extends BaseBean {
 </#list>
 
 <#list jdbcTable.jdbcColumns as column>
-    public String get${column.columnCamelName?cap_first} {
+    public String get${column.columnCamelName?cap_first}() {
         return ${column.columnCamelName};
     }
     public void set${column.columnCamelName?cap_first}(String ${column.columnCamelName}) {

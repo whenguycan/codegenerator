@@ -9,22 +9,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 简单代码生成，项目使用
+ * 简单代码生成，web项目使用
  * @Author wangcy
  * @Date 2021/4/28 13:33
  */
 public class CodeGenerator {
 
+    public static void main(String[] args) {
+        CodeGenerator.newInstance().generate();
+    }
+
     public static final String driverName = "oracle.jdbc.driver.OracleDriver";
-    public static final String url = "jdbc:oracle:thin:@192.168.2.251:1521:orcl";
-    public static final String username = "gemini_zz_3_3";
-    public static final String password = "gemini_zz_3_3";
+    public static final String url = "jdbc:oracle:thin:@192.168.2.252:1521:orcl";
+    public static final String username = "slszyzz_200507";
+    public static final String password = "slszyzz_200507";
 
     static final String OUTPUT_DIR = "C:\\_git_repo\\code_generate";
 
-    static final String TABLE_NAME = "T_SYS_USER";
-    static final String BEAN_NAME = "User";
-    static final String PACKAGE_PREF = "com.goisan.system.user";
+    static final String TABLE_NAME = "T_XG_PRE_REGISTER";
+    static final String BEAN_NAME = "PreRegister";
+    static final String PACKAGE_PREF = "com.goisan.studentwork.register";
 
     private CodeGenerator() {}
 
