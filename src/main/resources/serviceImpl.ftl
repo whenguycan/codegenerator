@@ -22,13 +22,13 @@ public class ${jdbcTable.beanName}ServiceImpl implements ${jdbcTable.beanName}Se
 
     /**通过ID查询单条数据*/
     @Override
-    public ${jdbcTable.beanName} queryById(String id) {
+    public ${jdbcTable.beanName} getById(String id) {
         return this.${jdbcTable.beanName?uncap_first}Dao.queryById(id);
     }
 
     /**通过实体作为筛选条件查询*/
     @Override
-    public List <${jdbcTable.beanName}> queryAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
+    public List <${jdbcTable.beanName}> getAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
         return this.${jdbcTable.beanName?uncap_first}Dao.queryAll(${jdbcTable.beanName?uncap_first});
     }
 

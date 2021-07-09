@@ -13,10 +13,10 @@ import java.util.List;
 public interface ${jdbcTable.beanName}Service {
 
     /**通过ID查询单条数据*/
-    ${jdbcTable.beanName} queryById(String id);
+    ${jdbcTable.beanName} getById(String id);
 
     /**通过实体作为筛选条件查询*/
-    List<${jdbcTable.beanName}> queryAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
+    List<${jdbcTable.beanName}> getAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
 
     /**新增数据*/
     int insert(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});

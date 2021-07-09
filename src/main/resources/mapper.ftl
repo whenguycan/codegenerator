@@ -3,7 +3,7 @@
 <mapper namespace="${jdbcTable.packagePref}.dao.${jdbcTable.beanName}Dao">
 
     <!--查询单个-->
-    <select id="queryById" parameterType="string" resultType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}">
+    <select id="getById" parameterType="string" resultType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}">
         select
         <#list jdbcTable.jdbcColumns as column>
             <#if column.dataType == 'DATE' && column.columnName != 'CREATE_TIME' && column.columnName != 'CHANGE_TIME'>
@@ -17,7 +17,7 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll"
+    <select id="getAll"
             resultType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}"
             parameterType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}">
         select
