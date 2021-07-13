@@ -28,9 +28,13 @@
         <include refid="fields"></include>
         from ${jdbcTable.tableName} t
         <where>
-            <if test="requestTime != null and requestTime != ''">
-            t.REQUEST_TIME like '${'%'}' || ${'#'}${'{'}requestTime${'}'} || '${'%'}'
+                <#list jdbcTable.jdbcColumns as column>
+                    <#if column?index == 1>
+            <if test="${column.columnCamelName} != null and ${column.columnCamelName} != ''">
+                t.${column.columnName} like '${'%'}' || ${'#'}${'{'}${column.columnCamelName}${'}'} || '${'%'}'
             </if>
+                    </#if>
+                </#list>
         </where>
     </select>
 

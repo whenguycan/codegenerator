@@ -24,6 +24,9 @@ public class ${jdbcTable.beanName}Controller {
     @Resource
     ${jdbcTable.beanName}Service ${jdbcTable.beanName?uncap_first}Service;
 
+    /**
+     * 跳转到列表页
+     */
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}")
     public ModelAndView toList() {
         ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}");
@@ -31,6 +34,9 @@ public class ${jdbcTable.beanName}Controller {
         return mv;
     }
 
+    /**
+     * 跳转到新增页
+     */
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/add${jdbcTable.beanName}")
     public ModelAndView toAdd() {
         ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}");
@@ -39,6 +45,9 @@ public class ${jdbcTable.beanName}Controller {
         return mv;
     }
 
+    /**
+     * 跳转到修改页
+     */
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}")
     public ModelAndView toEdit(String id) {
         ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}");
@@ -47,6 +56,9 @@ public class ${jdbcTable.beanName}Controller {
         return mv;
     }
 
+    /**
+     * 条件查询
+     */
     @ResponseBody
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/search")
     public JsonMessage search(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
@@ -54,6 +66,9 @@ public class ${jdbcTable.beanName}Controller {
         return JsonMessage.success("", list);
     }
 
+    /**
+     * 保存
+     */
     @ResponseBody
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/save")
     public JsonMessage save(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
@@ -66,6 +81,9 @@ public class ${jdbcTable.beanName}Controller {
         }
     }
 
+    /**
+     * 删除
+     */
     @ResponseBody
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/del")
     public JsonMessage del(String id) {
@@ -73,6 +91,9 @@ public class ${jdbcTable.beanName}Controller {
         return JsonMessage.success("删除成功！");
     }
 
+    /**
+     * 跳转到查看列表页
+     */
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}View")
     public ModelAndView toViewList() {
         ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}");
@@ -80,6 +101,9 @@ public class ${jdbcTable.beanName}Controller {
         return mv;
     }
 
+    /**
+     * 查看
+     */
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/view${jdbcTable.beanName}")
     public ModelAndView toView(String id) {
         ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/view${jdbcTable.beanName}");

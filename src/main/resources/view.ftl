@@ -12,30 +12,16 @@
         <div class="modal-body clearfix">
             <div id="layout" style="display:none;z-index:999;position:absolute;width: 100%;height: 100%;text-align: center"></div>
             <div class="controls">
+                    <#list jdbcTable.jdbcColumns as column>
                 <div class="form-row">
                     <div class="col-md-2 tar">
-                        测试字段
+                        ${column.comments}
                     </div>
                     <div class="col-md-4">
-                        <input id="e_requestTime" readonly="readonly" value="${'$'}${'{'}e.requestTime${'}'}">
+                        <input id="e_${column.columnCamelName}" readonly="readonly" value="${'$'}${'{'}e.${column.columnCamelName}${'}'}">
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col-md-2 tar">
-                        创建时间
-                    </div>
-                    <div class="col-md-4">
-                        <input id="e_createTime" readonly="readonly" value="${'$'}${'{'}e.createTime${'}'}">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-2 tar">
-                        修改时间
-                    </div>
-                    <div class="col-md-4">
-                        <input id="e_changeTime" readonly="readonly" value="${'$'}${'{'}e.changeTime${'}'}">
-                    </div>
-                </div>
+                    </#list>
             </div>
         </div>
         <div class="modal-footer">

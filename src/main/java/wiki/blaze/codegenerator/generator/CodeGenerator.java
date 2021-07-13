@@ -5,7 +5,9 @@ import wiki.blaze.codegenerator.jdbc.model.JdbcTable;
 import wiki.blaze.codegenerator.util.DateUtils;
 import wiki.blaze.codegenerator.util.FreemarkerUtils;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,6 +83,7 @@ public class CodeGenerator {
     }
 
     final String excludeColumns = "CREATOR,CREATE_DEPT,CREATE_TIME,CHANGER,CHANGE_DEPT,CHANGE_TIME,VALID_FLAG";
+    final String excludeColumnsAndID = "ID,CREATOR,CREATE_DEPT,CREATE_TIME,CHANGER,CHANGE_DEPT,CHANGE_TIME,VALID_FLAG";
     public void generate() {
         if(!init) {
             throw new RuntimeException("call init first");
@@ -96,15 +99,21 @@ public class CodeGenerator {
             generateService(jdbcTable);
             generateServiceImpl(jdbcTable);
             generateController(jdbcTable);
-            generateJspEdit(jdbcTable);
-            generateJspList(jdbcTable);
+            generateJspEdit(jdbcTable.clone(excludeColumnsAndID.split(",")));
+            generateJspList(jdbcTable.clone(excludeColumnsAndID.split(",")));
             generateJspOperate(jdbcTable);
             generateJspOperateView(jdbcTable);
-            generateJspView(jdbcTable);
+            generateJspView(jdbcTable.clone(excludeColumnsAndID.split(",")));
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("---->generate end path: " + outputDir);
+        try {
+            // 打开资源管理器文件夹
+            Desktop.getDesktop().open(new File(outputDir));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void generateBean(JdbcTable jdbcTable) {

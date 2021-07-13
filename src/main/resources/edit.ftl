@@ -11,14 +11,16 @@
         <div class="modal-body clearfix">
             <div id="layout" style="display:none;z-index:999;position:absolute;width: 100%;height: 100%;text-align: center"></div>
             <div class="controls">
+                    <#list jdbcTable.jdbcColumns as column>
                 <div class="form-row">
                     <div class="col-md-2 tar">
-                        <span class="iconBtx">*</span>测试字段
+                        <span class="iconBtx">*</span>${column.comments}
                     </div>
                     <div class="col-md-4">
-                        <input id="e_requestTime" value="${'$'}${'{'}e.requestTime${'}'}" placeholder="测试字段">
+                        <input id="e_${column.columnCamelName}" value="${'$'}${'{'}e.${column.columnCamelName}${'}'}" placeholder="${column.comments}">
                     </div>
                 </div>
+                    </#list>
             </div>
         </div>
         <div class="modal-footer">
@@ -32,15 +34,17 @@
 <script>
     $("${'#'}layout").load("<%=request.getContextPath()%>/common/commonSaveLoading");
     $(document).ready(function () {
-        $("#e_requestTime").focus();
+
     });
     function save${jdbcTable.beanName}() {
         var data = {};
         var setting = {
-            requestTime: '请填写测试字段！'
+            // name: '请填写字段！'
         };
         data.id = $("#e_id").val();
-        data.requestTime = $("#e_requestTime").val();
+            <#list jdbcTable.jdbcColumns as column>
+        data.${column.columnCamelName} = $("#e_${column.columnCamelName}").val();
+            </#list>
         for(var k in setting) {
             var v = data[k];
             if(v == undefined || v == '') {

@@ -11,12 +11,16 @@
 
                     <div class="content block-fill-white">
                         <div class="form-row">
+                                <#list jdbcTable.jdbcColumns as column>
+                                    <#if column?is_first>
                             <div class="col-md-1 tar">
-                                测试字段：
+                                ${column.comments}：
                             </div>
                             <div class="col-md-2">
-                                <input id="s_requestTime" type="text" class="form-control" />
+                                <input id="s_${column.columnCamelName}" type="text" class="form-control" />
                             </div>
+                                    </#if>
+                                </#list>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-default btn-clean"
                                         onclick="search()">查询
@@ -120,7 +124,11 @@
     }
 
     function searchclear() {
-        $("#s_requestTime").val("");
+            <#list jdbcTable.jdbcColumns as column>
+                <#if column?is_first>
+        $("#s_${column.columnCamelName}").val("");
+                </#if>
+            </#list>
         search();
     }
 
@@ -130,30 +138,20 @@
                 "type": "post",
                 "url": '<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/search',
                 "data": {
-                    requestTime: $("#s_requestTime").val()
+                        <#list jdbcTable.jdbcColumns as column>
+                            <#if column?is_first>
+                    ${column.columnCamelName}: $("#s_${column.columnCamelName}").val()
+                            </#if>
+                        </#list>
                 }
             },
             "destroy": true,
             "columns": [
                 {"data": "id", "visible": false},
                 {"data": "createTime", "visible": false},
-                {"width": "10%", "data": "requestTime", "title": "测试字段"},
-                {
-                    "width": "10%",
-                    "data": "createTime",
-                    "title": "创建时间",
-                    "render": function(data, type, row) {
-                        return formatDate(data);
-                    }
-                },
-                {
-                    "width": "10%",
-                    "data": "changeTime",
-                    "title": "修改时间",
-                    "render": function(data, type, row) {
-                        return formatDate(data);
-                    }
-                },
+                    <#list jdbcTable.jdbcColumns as column>
+                {"width": "10%", "data": "${column.columnCamelName}", "title": "${column.comments}"},
+                    </#list>
                 {
                     "width": "10%",
                     "title": "操作",
