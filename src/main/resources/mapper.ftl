@@ -2,36 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${jdbcTable.packagePref}.dao.${jdbcTable.beanName}Dao">
 
+    <sql id="fields">
+        <#list jdbcTable.jdbcColumns as column>
+            <#if column.dataType == 'DATE' && column.columnName != 'CREATE_TIME' && column.columnName != 'CHANGE_TIME'>
+        to_char(t.${column.columnName}, 'yyyy-mm-dd') ${column.columnCamelName}<#if column?is_last><#else>,</#if>
+            <#else>
+        t.${column.columnName}<#if column?is_last><#else>,</#if>
+            </#if>
+        </#list>
+    </sql>
+
     <!--查询单个-->
     <select id="getById" parameterType="string" resultType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}">
         select
-        <#list jdbcTable.jdbcColumns as column>
-            <#if column.dataType == 'DATE' && column.columnName != 'CREATE_TIME' && column.columnName != 'CHANGE_TIME'>
-            to_char(t.${column.columnName}, 'yyyy-mm-dd') ${column.columnCamelName}<#if column?is_last><#else>,</#if>
-            <#else>
-            t.${column.columnName}<#if column?is_last><#else>,</#if>
-            </#if>
-        </#list>
+        <include refid="fields"></include>
         from ${jdbcTable.tableName} t
         where t.${jdbcTable.pkColumn.columnName} = ${'#'}${'{'}${jdbcTable.pkColumn.columnCamelName}${'}'}
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="getAll"
+    <select id="getListSearch"
             resultType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}"
             parameterType="${jdbcTable.packagePref}.bean.${jdbcTable.beanName}">
         select
-        <#list jdbcTable.jdbcColumns as column>
-            <#if column.dataType == 'DATE' && column.columnName != 'CREATE_TIME' && column.columnName != 'CHANGE_TIME'>
-            to_char(t.${column.columnName}, 'yyyy-mm-dd') ${column.columnCamelName}<#if column?is_last><#else>,</#if>
-            <#else>
-            t.${column.columnName}<#if column?is_last><#else>,</#if>
-            </#if>
-        </#list>
+        <include refid="fields"></include>
         from ${jdbcTable.tableName} t
         <where>
-            <if test="${jdbcTable.pkColumn.columnCamelName} != null and ${jdbcTable.pkColumn.columnCamelName} != ''">
-                and t.${jdbcTable.pkColumn.columnName} = ${'#'}${'{'}${jdbcTable.pkColumn.columnCamelName}${'}'}
+            <if test="requestTime != null and requestTime != ''">
+            t.REQUEST_TIME like '${'%'}' || ${'#'}${'{'}requestTime${'}'} || '${'%'}'
             </if>
         </where>
     </select>
@@ -81,7 +79,7 @@
                 <#else>
                     <#if column.columnName != 'CREATOR' && column.columnName != 'CREATE_DEPT' && column.columnName != 'CREATE_TIME' && column.columnName != 'VALID_FLAG'>
                         <#if column.columnName == 'CHANGE_TIME'>
-            ${column.columnName} = sysdate,
+                ${column.columnName} = sysdate,
                         <#else>
             <if test="${column.columnCamelName} != null and ${column.columnCamelName} != ''">
                             <#if column.dataType == 'DATE'>

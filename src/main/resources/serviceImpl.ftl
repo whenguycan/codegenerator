@@ -12,7 +12,7 @@ import java.util.List;
  * ${jdbcTable.comments} 服务实现类
  *
  * @author ${author}
- * @since ${date?string("yyyy-MM-dd HH:mm:ss")}
+ * @date ${date?string("yyyy-MM-dd HH:mm:ss")}
  */
 @Service
 public class ${jdbcTable.beanName}ServiceImpl implements ${jdbcTable.beanName}Service {
@@ -23,13 +23,13 @@ public class ${jdbcTable.beanName}ServiceImpl implements ${jdbcTable.beanName}Se
     /**通过ID查询单条数据*/
     @Override
     public ${jdbcTable.beanName} getById(String id) {
-        return this.${jdbcTable.beanName?uncap_first}Dao.queryById(id);
+        return this.${jdbcTable.beanName?uncap_first}Dao.getById(id);
     }
 
     /**通过实体作为筛选条件查询*/
     @Override
-    public List <${jdbcTable.beanName}> getAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
-        return this.${jdbcTable.beanName?uncap_first}Dao.queryAll(${jdbcTable.beanName?uncap_first});
+    public List <${jdbcTable.beanName}> getListSearch(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
+        return this.${jdbcTable.beanName?uncap_first}Dao.getListSearch(${jdbcTable.beanName?uncap_first});
     }
 
     /**新增数据*/

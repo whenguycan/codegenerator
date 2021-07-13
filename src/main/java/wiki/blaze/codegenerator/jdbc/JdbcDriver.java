@@ -56,6 +56,7 @@ public class JdbcDriver {
                 model.tableName,
                 model.beanName,
                 model.packagePref,
+                model.pathPref,
                 rs.getString("comments")
             );
         }

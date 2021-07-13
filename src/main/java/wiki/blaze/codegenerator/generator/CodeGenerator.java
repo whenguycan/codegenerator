@@ -10,30 +10,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 简单代码生成，web项目使用
+ * 简单代码生成，Gmini系列 web项目使用
  * @Author wangcy
  * @Date 2021/4/28 13:33
  */
 public class CodeGenerator {
 
-    public static void main(String[] args) {
-        CodeGenerator.newInstance()
-                .init("T_ZW_SIMULATOR", "Simulator", "com.goisan.logistics.simulator")
-                .generate();
-    }
+    public static String driverName = "";
+    public static String url = "";
+    public static String username = "";
+    public static String password = "";
 
-    public static final String driverName = "oracle.jdbc.driver.OracleDriver";
-    public static final String url = "jdbc:oracle:thin:@192.168.2.252:1521:orcl";
-//    public static final String username = "slszyzz_200507";
-//    public static final String password = "slszyzz_200507";
-    public static final String username = "goisan_hunger";
-    public static final String password = "hunger";
+    String outputDir = "";
 
-    String OUTPUT_DIR = "C:\\_git_repo\\code_generate";
+    String tableName = "";
+    String beanName = "";
+    String topPackageName = "";
+    String topBusinessName = "";
+    String parentPackageName = "";
+    String packageName = "";
 
-    String TABLE_NAME = "";
-    String BEAN_NAME = "";
-    String PACKAGE_PREF = "";
+    private boolean init = false;
 
     private CodeGenerator() {
     }
@@ -42,108 +39,134 @@ public class CodeGenerator {
         return new CodeGenerator();
     }
 
-    public CodeGenerator init(String tableName, String beanName, String packagePref) {
-        this.TABLE_NAME = tableName;
-        this.BEAN_NAME = beanName;
-        this.PACKAGE_PREF = packagePref;
-        OUTPUT_DIR = "C:\\_git_repo\\code_generate\\" + beanName + DateUtils.getTimestamp();
-        new File(OUTPUT_DIR).mkdirs();
+    public CodeGenerator tableName(String tableName) {
+        this.tableName = tableName;
         return this;
     }
 
-    File getBeanDir() {
-        File file = new File(OUTPUT_DIR, "bean");
-        file.mkdirs();
-        return file;
+    public CodeGenerator beanName(String beanName) {
+        this.beanName = beanName;
+        this.packageName = beanName.toLowerCase();
+        return this;
     }
 
-    File getDaoDir() {
-        File file = new File(OUTPUT_DIR, "dao");
-        file.mkdirs();
-        return file;
+    public CodeGenerator topPackageName(String topPackageName) {
+        this.topPackageName = topPackageName;
+        return this;
     }
 
-    File getServiceDir() {
-        File file = new File(OUTPUT_DIR, "service");
-        file.mkdirs();
-        return file;
+    public CodeGenerator topBusinessName(String topBusinessName) {
+        this.topBusinessName = topBusinessName;
+        return this;
     }
 
-    File getServiceImplDir() {
-        File file = new File(OUTPUT_DIR, "service\\impl");
-        file.mkdirs();
-        return file;
+    public CodeGenerator parentPackageName(String parentPackageName) {
+        this.parentPackageName = parentPackageName;
+        return this;
     }
 
-    File getControllerDir() {
-        File file = new File(OUTPUT_DIR, "controller");
-        file.mkdirs();
-        return file;
+    public CodeGenerator setDatasource(String driverName, String url, String username, String password) {
+        CodeGenerator.driverName = driverName;
+        CodeGenerator.url = url;
+        CodeGenerator.username = username;
+        CodeGenerator.password = password;
+        return this;
+    }
+
+    public CodeGenerator init() {
+        outputDir = "C:\\_git_repo\\code_generate\\" + beanName + DateUtils.getTimestamp();
+        new File(outputDir).mkdirs();
+        init = true;
+        return this;
     }
 
     final String excludeColumns = "CREATOR,CREATE_DEPT,CREATE_TIME,CHANGER,CHANGE_DEPT,CHANGE_TIME,VALID_FLAG";
     public void generate() {
+        if(!init) {
+            throw new RuntimeException("call init first");
+        }
         System.out.println("---->generate start");
         try {
-            JdbcTable jdbcTable = JdbcDriver.getSchemas(new JdbcTable(TABLE_NAME, BEAN_NAME, PACKAGE_PREF));
+            String packagePref = topPackageName + "." + parentPackageName + "." + packageName;
+            String pathPref = topBusinessName + "/" + parentPackageName;
+            JdbcTable jdbcTable = JdbcDriver.getSchemas(new JdbcTable(tableName, beanName, packagePref, pathPref, ""));
             generateBean(jdbcTable.clone(excludeColumns.split(",")));
             generateMapper(jdbcTable);
             generateDao(jdbcTable);
             generateService(jdbcTable);
             generateServiceImpl(jdbcTable);
             generateController(jdbcTable);
+            generateJspEdit(jdbcTable);
+            generateJspList(jdbcTable);
+            generateJspOperate(jdbcTable);
+            generateJspOperateView(jdbcTable);
+            generateJspView(jdbcTable);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("---->generate end path: " + OUTPUT_DIR);
+        System.out.println("---->generate end path: " + outputDir);
     }
 
     void generateBean(JdbcTable jdbcTable) {
         System.out.println("-->generate bean");
-        Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(getBeanDir(), String.format("%s.java", jdbcTable.beanName));
-        FreemarkerUtils.process("bean.ftl", dataModel, output);
+        generate(jdbcTable, "%s.java", "bean.ftl");
     }
 
     void generateMapper(JdbcTable jdbcTable) {
         System.out.println("-->generate mapper");
-        Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(OUTPUT_DIR, String.format("%sDao.xml", jdbcTable.beanName));
-        FreemarkerUtils.process("mapper.ftl", dataModel, output);
+        generate(jdbcTable, "%sDao.xml", "mapper.ftl");
     }
 
     void generateDao(JdbcTable jdbcTable) {
         System.out.println("-->generate dao");
-        Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(getDaoDir(), String.format("%sDao.java", jdbcTable.beanName));
-        FreemarkerUtils.process("dao.ftl", dataModel, output);
+        generate(jdbcTable, "%sDao.java", "dao.ftl");
     }
 
     void generateService(JdbcTable jdbcTable) {
         System.out.println("-->generate service");
-        Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(getServiceDir(), String.format("%sService.java", jdbcTable.beanName));
-        FreemarkerUtils.process("service.ftl", dataModel, output);
+        generate(jdbcTable, "%sService.java", "service.ftl");
     }
 
     void generateServiceImpl(JdbcTable jdbcTable) {
         System.out.println("-->generate serviceImpl");
-        Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(getServiceImplDir(), String.format("%sServiceImpl.java", jdbcTable.beanName));
-        FreemarkerUtils.process("serviceImpl.ftl", dataModel, output);
+        generate(jdbcTable, "%sServiceImpl.java", "serviceImpl.ftl");
     }
 
     void generateController(JdbcTable jdbcTable) {
         System.out.println("-->generate controller");
+        generate(jdbcTable, "%sController.java", "controller.ftl");
+    }
+
+    void generateJspEdit(JdbcTable jdbcTable) {
+        System.out.println("-->generate edit");
+        generate(jdbcTable, "edit%s.jsp", "edit.ftl");
+    }
+
+    void generateJspList(JdbcTable jdbcTable) {
+        System.out.println("-->generate list");
+        generate(jdbcTable, "list%s.jsp", "list.ftl");
+    }
+
+    void generateJspOperate(JdbcTable jdbcTable) {
+        System.out.println("-->generate operate");
+        generate(jdbcTable, "operate.jsp", "operate.ftl");
+    }
+
+    void generateJspOperateView(JdbcTable jdbcTable) {
+        System.out.println("-->generate operateView");
+        generate(jdbcTable, "operateView.jsp", "operateView.ftl");
+    }
+
+    void generateJspView(JdbcTable jdbcTable) {
+        System.out.println("-->generate view");
+        generate(jdbcTable, "view%s.jsp", "view.ftl");
+    }
+
+    private void generate(JdbcTable jdbcTable, String targetNameFormatter, String templateName) {
         Map<String, Object> dataModel = new HashMap<>();
         dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(getControllerDir(), String.format("%sController.java", jdbcTable.beanName));
-        FreemarkerUtils.process("controller.ftl", dataModel, output);
+        File output = new File(outputDir, String.format(targetNameFormatter, jdbcTable.beanName));
+        FreemarkerUtils.process(templateName, dataModel, output);
     }
 
 }

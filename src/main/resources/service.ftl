@@ -8,7 +8,7 @@ import java.util.List;
  * ${jdbcTable.comments} 服务接口
  *
  * @author ${author}
- * @since ${date?string("yyyy-MM-dd HH:mm:ss")}
+ * @date ${date?string("yyyy-MM-dd HH:mm:ss")}
  */
 public interface ${jdbcTable.beanName}Service {
 
@@ -16,7 +16,7 @@ public interface ${jdbcTable.beanName}Service {
     ${jdbcTable.beanName} getById(String id);
 
     /**通过实体作为筛选条件查询*/
-    List<${jdbcTable.beanName}> getAll(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
+    List<${jdbcTable.beanName}> getListSearch(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});
 
     /**新增数据*/
     int insert(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first});

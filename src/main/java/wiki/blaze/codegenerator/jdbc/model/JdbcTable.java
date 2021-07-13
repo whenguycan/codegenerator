@@ -12,21 +12,16 @@ public class JdbcTable {
     public String tableName;
     public String beanName;
     public String packagePref;
+    public String pathPref;
     public String comments;
     public JdbcColumn pkColumn;
     public List<JdbcColumn> jdbcColumns = new ArrayList<>();
 
-    public JdbcTable(String tableName, String beanName, String packagePref) {
+    public JdbcTable(String tableName, String beanName, String packagePref, String pathPref, String comments) {
         this.tableName = tableName;
         this.beanName = beanName;
         this.packagePref = packagePref;
-        this.comments = "";
-    }
-
-    public JdbcTable(String tableName, String beanName, String packagePref, String comments) {
-        this.tableName = tableName;
-        this.beanName = beanName;
-        this.packagePref = packagePref;
+        this.pathPref = pathPref;
         this.comments = comments != null ? comments : "";
     }
 
@@ -35,7 +30,7 @@ public class JdbcTable {
     }
 
     public JdbcTable clone(String[] excludeColumns) {
-        JdbcTable jdbcTable = new JdbcTable(this.tableName, this.beanName, this.packagePref, this.comments);
+        JdbcTable jdbcTable = new JdbcTable(this.tableName, this.beanName, this.packagePref, this.pathPref, this.comments);
         JdbcColumn pk = this.pkColumn;
         jdbcTable.pkColumn = new JdbcColumn(pk.tableName, pk.columnName, pk.dataType, pk.constraintType, pk.comments);
         Set<String> excludes = new HashSet<>();
@@ -97,5 +92,13 @@ public class JdbcTable {
 
     public void setJdbcColumns(List<JdbcColumn> jdbcColumns) {
         this.jdbcColumns = jdbcColumns;
+    }
+
+    public String getPathPref() {
+        return pathPref;
+    }
+
+    public void setPathPref(String pathPref) {
+        this.pathPref = pathPref;
     }
 }

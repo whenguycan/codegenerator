@@ -6,7 +6,7 @@ import com.goisan.system.bean.BaseBean;
  * ${jdbcTable.comments} 实体
  *
  * @author ${author}
- * @since ${date?string("yyyy-MM-dd HH:mm:ss")}
+ * @date ${date?string("yyyy-MM-dd HH:mm:ss")}
  */
 public class ${jdbcTable.beanName} extends BaseBean {
 
