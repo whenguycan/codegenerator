@@ -36,7 +36,7 @@
                         </${'c'}${':'}if>
                     </div>
                     <div class="form-row block" style="overflow-y:auto;">
-                        <table id="blacklistGrid" cellpadding="0" cellspacing="0"
+                        <table id="${jdbcTable.beanName?uncap_first}Grid" cellpadding="0" cellspacing="0"
                                width="100%" style="max-height: 50${'%'};min-height: 10${'%'};"
                                class="table table-bordered table-striped sortable_default">
                         </table>
@@ -100,7 +100,11 @@
     })
 
     function formatDate(data){
-        var datetime = new Date(data);
+        if(data = null || data == undefined || data == '') {
+            return '--';
+        }
+        var datetime = new Date();
+        datetime.setDate(data);
         var year = datetime.getFullYear();
         var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
         var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
