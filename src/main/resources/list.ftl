@@ -11,16 +11,16 @@
 
                     <div class="content block-fill-white">
                         <div class="form-row">
-                                <#list jdbcTable.jdbcColumns as column>
-                                    <#if column?is_first>
+<#list jdbcTable.jdbcColumns as column>
+    <#if column?is_first>
                             <div class="col-md-1 tar">
                                 ${column.comments}：
                             </div>
                             <div class="col-md-2">
                                 <input id="s_${column.columnCamelName}" type="text" class="form-control" />
                             </div>
-                                    </#if>
-                                </#list>
+    </#if>
+</#list>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-default btn-clean"
                                         onclick="search()">查询
