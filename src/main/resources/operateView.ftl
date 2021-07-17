@@ -5,7 +5,7 @@
 <script>
 function getOperate() {
     var html = "";
-    html += "<a id='view${jdbcTable.beanName}' class='icon-search' title='修改'></a>&nbsp;&nbsp;&nbsp;";
+    html += "<a id='view${jdbcTable.beanName}' class='icon-search' title='查看'></a>&nbsp;&nbsp;&nbsp;";
     return html;
 }
 </script>
