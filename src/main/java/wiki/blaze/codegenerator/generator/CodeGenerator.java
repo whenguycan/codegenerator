@@ -48,7 +48,11 @@ public class CodeGenerator {
 
     public CodeGenerator beanName(String beanName) {
         this.beanName = beanName;
-        this.packageName = beanName.toLowerCase();
+        return this;
+    }
+
+    public CodeGenerator packageName(String packageName) {
+        this.packageName = packageName;
         return this;
     }
 

@@ -2,6 +2,8 @@ package ${jdbcTable.packagePref}.controller;
 
 import ${jdbcTable.packagePref}.bean.${jdbcTable.beanName};
 import ${jdbcTable.packagePref}.service.${jdbcTable.beanName}Service;
+import com.goisan.system.bean.LoginUser;
+import com.goisan.system.tools.CommonUtil;
 import com.goisan.system.tools.JsonMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -73,9 +75,11 @@ public class ${jdbcTable.beanName}Controller {
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/save")
     public JsonMessage save(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
         if(!StringUtils.hasText(${jdbcTable.beanName?uncap_first}.getId())) {
+            ${jdbcTable.beanName?uncap_first}.setCreator(CommonUtil.getPersonId());
             ${jdbcTable.beanName?uncap_first}Service.insert(${jdbcTable.beanName?uncap_first});
             return JsonMessage.success("新增成功！");
         }else {
+            ${jdbcTable.beanName?uncap_first}.setChanger(CommonUtil.getPersonId());
             ${jdbcTable.beanName?uncap_first}Service.update(${jdbcTable.beanName?uncap_first});
             return JsonMessage.success("修改成功！");
         }
