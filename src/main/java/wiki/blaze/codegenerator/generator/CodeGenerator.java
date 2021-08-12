@@ -30,7 +30,6 @@ public class CodeGenerator {
     String beanName = "";
     String topPackageName = "";
     String topBusinessName = "";
-    String parentPackageName = "";
     String packageName = "";
 
     private boolean init = false;
@@ -67,11 +66,6 @@ public class CodeGenerator {
         return this;
     }
 
-    public CodeGenerator parentPackageName(String parentPackageName) {
-        this.parentPackageName = parentPackageName;
-        return this;
-    }
-
     public CodeGenerator setDatasource(String driverName, String url, String username, String password) {
         CodeGenerator.driverName = driverName;
         CodeGenerator.url = url;
@@ -95,8 +89,8 @@ public class CodeGenerator {
         }
         System.out.println("---->generate start");
         try {
-            String packagePref = topPackageName + "." + parentPackageName + "." + packageName;
-            String pathPref = topBusinessName + "/" + parentPackageName;
+            String packagePref = topPackageName + "." + packageName;
+            String pathPref = topBusinessName;
             JdbcTable jdbcTable = JdbcDriver.getSchemas(new JdbcTable(tableName, beanName, packagePref, pathPref, ""));
             generateBean(jdbcTable.clone(excludeColumns.split(",")));
             generateMapper(jdbcTable);
