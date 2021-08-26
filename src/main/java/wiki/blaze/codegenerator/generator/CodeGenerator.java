@@ -75,7 +75,7 @@ public class CodeGenerator {
     }
 
     public CodeGenerator init() {
-        outputDir = "C:\\_git_repo\\code_generate\\" + beanName + DateUtils.getTimestamp();
+        outputDir = "C:\\_code_generate\\" + beanName + DateUtils.getTimestamp();
         new File(outputDir).mkdirs();
         init = true;
         return this;
