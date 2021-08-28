@@ -50,14 +50,6 @@
         </div>
     </div>
 </div>
-<${'c'}${':'}choose>
-    <${'c'}${':'}when test="${'$'}${'{'}operate == 'edit'${'}'}">
-        <%@include file="operate.jsp"%>
-    </${'c'}${':'}when>
-    <${'c'}${':'}when test="${'$'}${'{'}operate == 'view'${'}'}">
-        <%@include file="operateView.jsp"%>
-    </${'c'}${':'}when>
-</${'c'}${':'}choose>
 <script>
     var ${jdbcTable.beanName?uncap_first}Table;
     $(document).ready(function () {
@@ -156,7 +148,17 @@
                     "width": "10%",
                     "title": "操作",
                     "render": function () {
-                        return getOperate();
+                        var html = "";
+                        <c:choose>
+                            <c:when test="${'$'}${'{'}operate == 'edit'${'}'}">
+                                html += "<a id='edit${jdbcTable.beanName}' class='icon-edit' title='修改'></a>";
+                                html += "<a id='del${jdbcTable.beanName}' class='icon-trash' title='删除'></a>";
+                            </c:when>
+                            <c:when test="${'$'}${'{'}operate == 'view'${'}'}">
+                                html += "<a id='view${jdbcTable.beanName}' class='icon-search' title='查看'></a>";
+                            </c:when>
+                        </c:choose>
+                        return html;
                     }
                 }
             ],

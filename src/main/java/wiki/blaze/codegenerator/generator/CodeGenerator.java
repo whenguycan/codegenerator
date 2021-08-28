@@ -75,7 +75,7 @@ public class CodeGenerator {
     }
 
     public CodeGenerator init() {
-        outputDir = "C:\\_code_generate\\" + beanName + DateUtils.getTimestamp();
+        outputDir = "H:\\_code_generate\\" + beanName + DateUtils.getTimestamp();
         new File(outputDir).mkdirs();
         init = true;
         return this;
@@ -100,8 +100,6 @@ public class CodeGenerator {
             generateController(jdbcTable);
             generateJspEdit(jdbcTable.clone(excludeColumnsAndID.split(",")));
             generateJspList(jdbcTable.clone(excludeColumnsAndID.split(",")));
-            generateJspOperate(jdbcTable);
-            generateJspOperateView(jdbcTable);
             generateJspView(jdbcTable.clone(excludeColumnsAndID.split(",")));
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,16 +151,6 @@ public class CodeGenerator {
     void generateJspList(JdbcTable jdbcTable) {
         System.out.println("-->generate list");
         generate(jdbcTable, "list%s.jsp", "list.ftl");
-    }
-
-    void generateJspOperate(JdbcTable jdbcTable) {
-        System.out.println("-->generate operate");
-        generate(jdbcTable, "operate.jsp", "operate.ftl");
-    }
-
-    void generateJspOperateView(JdbcTable jdbcTable) {
-        System.out.println("-->generate operateView");
-        generate(jdbcTable, "operateView.jsp", "operateView.ftl");
     }
 
     void generateJspView(JdbcTable jdbcTable) {
