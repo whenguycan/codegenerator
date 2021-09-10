@@ -149,15 +149,13 @@
                     "title": "操作",
                     "render": function () {
                         var html = "";
-                        <c:choose>
-                            <c:when test="${'$'}${'{'}operate == 'edit'${'}'}">
-                                html += "<a id='edit${jdbcTable.beanName}' class='icon-edit' title='修改'></a>";
-                                html += "<a id='del${jdbcTable.beanName}' class='icon-trash' title='删除'></a>";
-                            </c:when>
-                            <c:when test="${'$'}${'{'}operate == 'view'${'}'}">
-                                html += "<a id='view${jdbcTable.beanName}' class='icon-search' title='查看'></a>";
-                            </c:when>
-                        </c:choose>
+                        <c:if test="${'$'}${'{'}operate == 'edit'${'}'}">
+                            html += "<a id='edit${jdbcTable.beanName}' class='icon-edit' title='修改'></a>&ensp;&ensp;";
+                            html += "<a id='del${jdbcTable.beanName}' class='icon-trash' title='删除'></a>&ensp;&ensp;";
+                        </c:if>
+                        <c:if test="${'$'}${'{'}operate == 'view'${'}'}">
+                            html += "<a id='view${jdbcTable.beanName}' class='icon-search' title='查看'></a>&ensp;&ensp;";
+                        </c:if>
                         return html;
                     }
                 }
