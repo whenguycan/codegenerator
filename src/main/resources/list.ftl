@@ -58,11 +58,11 @@
             var data = ${jdbcTable.beanName?uncap_first}Table.row($(this).parent()).data();
             var id = data.id;
             if (this.id == "edit${jdbcTable.beanName}") {
-                $("#dialog").load("<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}?id=" + id);
+                $("#dialog").load("<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/toEdit?id=" + id);
                 $("#dialog").modal("show");
             }
             if(this.id == "view${jdbcTable.beanName}") {
-                $("#dialog").load("<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/view${jdbcTable.beanName}?id=" + id);
+                $("#dialog").load("<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/toView?id=" + id);
                 $("#dialog").modal("show");
             }
             if (this.id == "del${jdbcTable.beanName}") {
@@ -111,7 +111,7 @@
     }
 
     function add${jdbcTable.beanName}() {
-        $("#dialog").load("<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/add${jdbcTable.beanName}");
+        $("#dialog").load("<%=request.getContextPath()%>/${jdbcTable.beanName?uncap_first}/toAdd");
         $("#dialog").modal("show");
     }
 

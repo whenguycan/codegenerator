@@ -151,23 +151,31 @@ public class CodeGenerator {
 
     void generateJspEdit(JdbcTable jdbcTable) {
         System.out.println("-->generate edit");
-        generate(jdbcTable, "edit%s.jsp", "edit.ftl");
+        generate(jdbcTable, "%sEdit.jsp", "edit.ftl", true);
     }
 
     void generateJspList(JdbcTable jdbcTable) {
         System.out.println("-->generate list");
-        generate(jdbcTable, "list%s.jsp", "list.ftl");
+        generate(jdbcTable, "%sList.jsp", "list.ftl", true);
     }
 
     void generateJspView(JdbcTable jdbcTable) {
         System.out.println("-->generate view");
-        generate(jdbcTable, "view%s.jsp", "view.ftl");
+        generate(jdbcTable, "%sView.jsp", "view.ftl", true);
     }
 
     private void generate(JdbcTable jdbcTable, String targetNameFormatter, String templateName) {
+        generate(jdbcTable, targetNameFormatter, templateName, false);
+    }
+
+    private void generate(JdbcTable jdbcTable, String targetNameFormatter, String templateName, boolean uncapFirst) {
         Map<String, Object> dataModel = new HashMap<>();
         dataModel.put("jdbcTable", jdbcTable);
-        File output = new File(outputDir, String.format(targetNameFormatter, jdbcTable.beanName));
+        String beanName = jdbcTable.beanName;
+        if(uncapFirst) {
+            beanName = jdbcTable.beanName.substring(0, 1).toLowerCase() + jdbcTable.beanName.substring(1);
+        }
+        File output = new File(outputDir, String.format(targetNameFormatter, beanName));
         FreemarkerUtils.process(templateName, dataModel, output);
     }
 

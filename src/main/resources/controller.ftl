@@ -29,19 +29,29 @@ public class ${jdbcTable.beanName}Controller {
     /**
      * 跳转到列表页
      */
-    @RequestMapping("/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}")
+    @RequestMapping("/${jdbcTable.beanName?uncap_first}/${jdbcTable.beanName?uncap_first}List")
     public ModelAndView toList() {
-        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}");
+        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}List");
         mv.addObject("operate", "edit");
         return mv;
     }
 
     /**
+    * 条件查询
+    */
+    @ResponseBody
+    @RequestMapping("/${jdbcTable.beanName?uncap_first}/search")
+    public JsonMessage search(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
+        List<${jdbcTable.beanName}> list = ${jdbcTable.beanName?uncap_first}Service.getListSearch(${jdbcTable.beanName?uncap_first});
+        return JsonMessage.success("", list);
+    }
+
+    /**
      * 跳转到新增页
      */
-    @RequestMapping("/${jdbcTable.beanName?uncap_first}/add${jdbcTable.beanName}")
+    @RequestMapping("/${jdbcTable.beanName?uncap_first}/toAdd")
     public ModelAndView toAdd() {
-        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}");
+        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}Edit");
         mv.addObject("head", "新增");
         mv.addObject("e", new ${jdbcTable.beanName}());
         return mv;
@@ -50,22 +60,12 @@ public class ${jdbcTable.beanName}Controller {
     /**
      * 跳转到修改页
      */
-    @RequestMapping("/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}")
+    @RequestMapping("/${jdbcTable.beanName?uncap_first}/toEdit")
     public ModelAndView toEdit(String id) {
-        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/edit${jdbcTable.beanName}");
+        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}Edit");
         mv.addObject("head", "修改");
         mv.addObject("e", ${jdbcTable.beanName?uncap_first}Service.getById(id));
         return mv;
-    }
-
-    /**
-     * 条件查询
-     */
-    @ResponseBody
-    @RequestMapping("/${jdbcTable.beanName?uncap_first}/search")
-    public JsonMessage search(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
-        List<${jdbcTable.beanName}> list = ${jdbcTable.beanName?uncap_first}Service.getListSearch(${jdbcTable.beanName?uncap_first});
-        return JsonMessage.success("", list);
     }
 
     /**
@@ -98,9 +98,9 @@ public class ${jdbcTable.beanName}Controller {
     /**
      * 跳转到查看列表页
      */
-    @RequestMapping("/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}View")
+    @RequestMapping("/${jdbcTable.beanName?uncap_first}/${jdbcTable.beanName?uncap_first}ViewList")
     public ModelAndView toViewList() {
-        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/list${jdbcTable.beanName}");
+        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}List");
         mv.addObject("operate", "view");
         return mv;
     }
@@ -108,9 +108,9 @@ public class ${jdbcTable.beanName}Controller {
     /**
      * 查看
      */
-    @RequestMapping("/${jdbcTable.beanName?uncap_first}/view${jdbcTable.beanName}")
+    @RequestMapping("/${jdbcTable.beanName?uncap_first}/toView")
     public ModelAndView toView(String id) {
-        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}/view${jdbcTable.beanName}");
+        ModelAndView mv = new ModelAndView("/${jdbcTable.pathPref}/${jdbcTable.beanName?uncap_first}View");
         mv.addObject("head", "查看");
         mv.addObject("e", ${jdbcTable.beanName?uncap_first}Service.getById(id));
         return mv;
