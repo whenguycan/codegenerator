@@ -4,7 +4,6 @@ import ${jdbcTable.packagePref}.bean.${jdbcTable.beanName};
 import ${jdbcTable.packagePref}.service.${jdbcTable.beanName}Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.goisan.system.bean.LoginUser;
 import com.goisan.system.tools.CommonUtil;
 import com.goisan.system.tools.JsonMessage;
 import org.springframework.stereotype.Controller;
