@@ -2,6 +2,8 @@ package ${jdbcTable.packagePref}.controller;
 
 import ${jdbcTable.packagePref}.bean.${jdbcTable.beanName};
 import ${jdbcTable.packagePref}.service.${jdbcTable.beanName}Service;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.goisan.system.bean.LoginUser;
 import com.goisan.system.tools.CommonUtil;
 import com.goisan.system.tools.JsonMessage;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.*;
 
 /**
  * ${jdbcTable.comments} 控制层
@@ -41,9 +43,18 @@ public class ${jdbcTable.beanName}Controller {
     */
     @ResponseBody
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/search")
-    public JsonMessage search(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
+    public Object search(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}, String draw, Integer start, Integer length) {
+        int pageNo = start / length + ;
+        int pageSize = length;
+        PageHelper.startPage(pageNo, pageSize);
         List<${jdbcTable.beanName}> list = ${jdbcTable.beanName?uncap_first}Service.getListSearch(${jdbcTable.beanName?uncap_first});
-        return JsonMessage.success("", list);
+        PageInfo<${jdbcTable.beanName}> info = new PageInfo<>(list);
+        Map${'<'}String, Object> map = new HashMap<>();
+        map.put("draw", draw);
+        map.put("recordsTotal", info.getTotal());
+        map.put("recordsFiltered", info.getTotal());
+        map.put("data", info.getList());
+        return map;
     }
 
     /**

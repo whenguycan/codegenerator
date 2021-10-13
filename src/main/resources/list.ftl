@@ -138,6 +138,7 @@
                 }
             },
             "destroy": true,
+            "serverSide": true,
             "columns": [
                 {"data": "id", "visible": false},
                 {"data": "createTime", "visible": false},
