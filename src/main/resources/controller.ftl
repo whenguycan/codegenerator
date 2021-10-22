@@ -43,7 +43,7 @@ public class ${jdbcTable.beanName}Controller {
     @ResponseBody
     @RequestMapping("/${jdbcTable.beanName?uncap_first}/search")
     public Object search(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}, String draw, Integer start, Integer length) {
-        int pageNo = start / length + ;
+        int pageNo = start / length + 1;
         int pageSize = length;
         PageHelper.startPage(pageNo, pageSize);
         List<${jdbcTable.beanName}> list = ${jdbcTable.beanName?uncap_first}Service.getListSearch(${jdbcTable.beanName?uncap_first});

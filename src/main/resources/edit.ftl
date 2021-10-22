@@ -13,10 +13,10 @@
             <div class="controls">
                     <#list jdbcTable.jdbcColumns as column>
                 <div class="form-row">
-                    <div class="col-md-2 tar">
+                    <div class="col-md-3 tar">
                         <span class="iconBtx">*</span>${column.comments}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <input id="e_${column.columnCamelName}" value="${'$'}${'{'}e.${column.columnCamelName}${'}'}" placeholder="${column.comments}">
                     </div>
                 </div>

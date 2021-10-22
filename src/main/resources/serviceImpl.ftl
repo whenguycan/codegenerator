@@ -28,7 +28,7 @@ public class ${jdbcTable.beanName}ServiceImpl implements ${jdbcTable.beanName}Se
 
     /**通过实体作为筛选条件查询*/
     @Override
-    public List <${jdbcTable.beanName}> getListSearch(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
+    public List<${jdbcTable.beanName}> getListSearch(${jdbcTable.beanName} ${jdbcTable.beanName?uncap_first}) {
         return this.${jdbcTable.beanName?uncap_first}Dao.getListSearch(${jdbcTable.beanName?uncap_first});
     }
 

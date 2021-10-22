@@ -13,7 +13,7 @@
                         <div class="form-row">
 <#list jdbcTable.jdbcColumns as column>
     <#if column?is_first>
-                            <div class="col-md-1 tar">
+                            <div class="col-md-2 tar">
                                 ${column.comments}：
                             </div>
                             <div class="col-md-2">
