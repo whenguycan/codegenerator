@@ -96,7 +96,7 @@
     })
 
     function formatDate(data){
-        if(data = null || data == undefined || data == '') {
+        if(data == null || data == undefined || data == '') {
             return '--';
         }
         var datetime = new Date(data);
