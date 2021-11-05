@@ -99,8 +99,7 @@
         if(data = null || data == undefined || data == '') {
             return '--';
         }
-        var datetime = new Date();
-        datetime.setDate(data);
+        var datetime = new Date(data);
         var year = datetime.getFullYear();
         var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
         var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
